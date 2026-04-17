@@ -32,9 +32,10 @@ function SparkleField() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          array={positions}
           count={count}
           itemSize={3}
+          array={positions}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
