@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const BALLOON_COLORS = [
   ["#ff2d55", "#800020"],
@@ -11,59 +12,83 @@ const BALLOON_COLORS = [
   ["#fab1a0", "#e17055"],
 ];
 
+interface BalloonData {
+  id: number;
+  color: string[];
+  left: number;
+  size: number;
+  duration: number;
+  drift: number;
+  rotate: number;
+}
+
 export default function FloatingBalloons({ active }: { active: boolean }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
-
-  const spawnBalloon = useCallback(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const balloon = document.createElement("div");
-    balloon.className = "balloon";
-
-    const shine = document.createElement("div");
-    shine.className = "balloon-shine";
-    balloon.appendChild(shine);
-
-    const gradient = BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)];
-    const size = 40 + Math.random() * 30;
-    const left = Math.random() * 95;
-    const duration = 8 + Math.random() * 6;
-    const drift = (Math.random() - 0.5) * 80;
-    const rotate = (Math.random() - 0.5) * 30;
-
-    balloon.style.left = `${left}vw`;
-    balloon.style.width = `${size}px`;
-    balloon.style.height = `${size * 1.3}px`;
-    balloon.style.background = `radial-gradient(circle at 65% 30%, ${gradient[0]}, ${gradient[1]})`;
-    balloon.style.boxShadow = `inset -8px -8px 15px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)`;
-    balloon.style.animationDuration = `${duration}s`;
-    balloon.style.setProperty("--drift", `${drift}px`);
-    balloon.style.setProperty("--rotate", `${rotate}deg`);
-
-    container.appendChild(balloon);
-    setTimeout(() => balloon.remove(), duration * 1000);
-  }, []);
+  const [balloons, setBalloons] = useState<BalloonData[]>([]);
 
   useEffect(() => {
     if (!active) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      setBalloons([]);
       return;
     }
 
-    // Spawn initial batch
-    for (let i = 0; i < 3; i++) {
-      setTimeout(() => spawnBalloon(), i * 300);
+    const spawnBalloon = () => {
+      const id = Date.now() + Math.random();
+      const newBalloon: BalloonData = {
+        id,
+        color: BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)],
+        size: 40 + Math.random() * 30,
+        left: Math.random() * 95,
+        duration: 8 + Math.random() * 6,
+        drift: (Math.random() - 0.5) * 100,
+        rotate: (Math.random() - 0.5) * 40,
+      };
+
+      setBalloons((prev) => [...prev, newBalloon]);
+
+      // Remove balloon from state after animation completes
+      setTimeout(() => {
+        setBalloons((prev) => prev.filter((b) => b.id !== id));
+      }, newBalloon.duration * 1000 + 100);
+    };
+
+    // Initial batch
+    for (let i = 0; i < 4; i++) {
+      setTimeout(spawnBalloon, i * 400);
     }
 
-    // Continuous spawn
-    intervalRef.current = setInterval(spawnBalloon, 2500);
-
+    const interval = setInterval(spawnBalloon, 2000);
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      clearInterval(interval);
     };
-  }, [active, spawnBalloon]);
+  }, [active]);
 
-  return <div ref={containerRef} className="balloon-container" />;
+  return (
+    <div className="balloon-container">
+      <AnimatePresence>
+        {balloons.map((b) => (
+          <motion.div
+            key={b.id}
+            className="balloon"
+            initial={{ y: "110vh", x: `${b.left}vw`, opacity: 0 }}
+            animate={{ 
+              y: "-20vh", 
+              x: `${b.left + (b.drift / 10)}vw`, 
+              rotate: b.rotate,
+              opacity: 1 
+            }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: b.duration, ease: "linear" }}
+            style={{
+              width: b.size,
+              height: b.size * 1.3,
+              background: `radial-gradient(circle at 65% 30%, ${b.color[0]}, ${b.color[1]})`,
+              boxShadow: `inset -8px -8px 15px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)`,
+            }}
+          >
+            <div className="balloon-shine" />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
 }
