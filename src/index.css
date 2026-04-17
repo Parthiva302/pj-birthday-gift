@@ -1,0 +1,802 @@
+/* ============================================
+   🎂 BIRTHDAY CELEBRATION - DESIGN SYSTEM
+   ============================================ */
+
+/* --- Custom Properties --- */
+:root {
+  --accent: #ff2d55;
+  --accent-glow: rgba(255, 45, 85, 0.5);
+  --accent-soft: rgba(255, 45, 85, 0.15);
+  --gold: #d4af37;
+  --gold-glow: rgba(212, 175, 55, 0.4);
+  --purple: #6c5ce7;
+  --teal: #00b894;
+  --warm: #fdcb6e;
+  --bg-dark: #0a0a0f;
+  --bg-section: #080810;
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.35);
+  --shadow-heavy: 0 25px 80px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 40px var(--accent-glow);
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Base --- */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  overflow-x: hidden;
+  background: var(--bg-dark);
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- Section Base --- */
+.section {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* --- Typography --- */
+.font-display {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.font-script {
+  font-family: "Dancing Script", cursive;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  background: radial-gradient(ellipse at 50% 30%, #1a0a12 0%, #0d0510 40%, var(--bg-dark) 100%);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.hero-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.1;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #ff2d55 25%,
+    #ffffff 50%,
+    #d4af37 75%,
+    #ffffff 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGradient 6s ease infinite;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 0 30px var(--accent-glow));
+}
+
+.hero-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: fadeInUp 1.5s ease 2s both;
+}
+
+.hero-scroll-indicator .chevron {
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(45deg);
+  animation: bounceDown 2s ease infinite;
+  opacity: 0.6;
+}
+
+/* --- Hero Profile Photo --- */
+.hero-photo-container {
+  margin-bottom: 2rem;
+}
+
+.hero-photo-ring {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--accent), var(--gold), var(--purple), var(--accent));
+  background-size: 300% 300%;
+  animation: borderGradient 4s ease infinite;
+  box-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(212, 175, 55, 0.2);
+  margin: 0 auto;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--bg-dark);
+  display: block;
+}
+
+/* ============================================
+   CAKE SECTION
+   ============================================ */
+.cake-section {
+  background: radial-gradient(ellipse at 50% 60%, #150a0e 0%, var(--bg-dark) 100%);
+}
+
+.cake-canvas-container {
+  width: 100%;
+  height: 70vh;
+  max-height: 600px;
+  position: relative;
+}
+
+.cake-instruction {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--text-secondary);
+  margin-top: 1.5rem;
+  text-align: center;
+  animation: pulseGlow 3s ease infinite;
+}
+
+.cake-blown-text {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--accent), var(--gold));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGradient 4s ease infinite;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   GALLERY SECTION — FEATURED PHOTO
+   ============================================ */
+.gallery-section {
+  background: radial-gradient(ellipse at 50% 50%, #0d0810 0%, var(--bg-section) 100%);
+  min-height: 100vh;
+  padding: 80px 20px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-title {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 50px;
+  text-shadow: 0 0 30px var(--accent-glow);
+}
+
+.gallery-featured {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.gallery-featured-frame {
+  position: relative;
+  max-width: 400px;
+  width: 90%;
+}
+
+.gallery-featured-inner {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px var(--accent-glow);
+  border: 2px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: transform 0.6s var(--transition-spring), box-shadow 0.6s ease;
+}
+
+.gallery-featured-inner::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--accent), var(--gold), var(--purple), var(--accent));
+  background-size: 300% 300%;
+  animation: borderGradient 5s ease infinite;
+  z-index: -1;
+}
+
+.gallery-featured-inner:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 0 0 80px var(--accent-glow);
+}
+
+.gallery-featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1s var(--transition-smooth);
+}
+
+.gallery-featured-inner:hover .gallery-featured-image {
+  transform: scale(1.05);
+}
+
+.gallery-featured-caption {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 1.5rem;
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* ============================================
+   MESSAGE SECTION
+   ============================================ */
+.message-section {
+  background: radial-gradient(ellipse at 50% 50%, #0d0a18 0%, var(--bg-dark) 100%);
+}
+
+.message-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(30px, 5vw, 60px);
+  max-width: 700px;
+  width: 90%;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-heavy);
+  overflow: hidden;
+}
+
+.message-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--purple) 30%,
+    var(--gold) 60%,
+    var(--accent) 100%
+  );
+  background-size: 300% 300%;
+  animation: borderGradient 6s ease infinite;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.message-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: rgba(10, 10, 15, 0.95);
+  z-index: -1;
+}
+
+.message-greeting {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.message-body {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.message-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+/* ============================================
+   FINALE SECTION
+   ============================================ */
+.finale-section {
+  background: radial-gradient(ellipse at 50% 40%, #1a0505 0%, #000000 100%);
+}
+
+.finale-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.finale-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.finale-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 900;
+  font-style: italic;
+  background: linear-gradient(
+    135deg,
+    var(--gold) 0%,
+    #fff 20%,
+    var(--accent) 40%,
+    #fff 60%,
+    var(--gold) 80%,
+    var(--accent) 100%
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGradient 4s ease infinite;
+  filter: drop-shadow(0 0 40px var(--gold-glow));
+  margin-bottom: 1rem;
+}
+
+.finale-subtitle {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* --- Finale Profile Photo --- */
+.finale-photo-container {
+  margin-bottom: 1.5rem;
+}
+
+.finale-photo-ring {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--gold), var(--accent), var(--purple), var(--gold));
+  background-size: 300% 300%;
+  animation: borderGradient 4s ease infinite;
+  box-shadow: 0 0 50px var(--gold-glow), 0 0 100px rgba(255, 45, 85, 0.2);
+  margin: 0 auto;
+}
+
+.finale-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #000;
+  display: block;
+}
+
+/* --- Neon Button --- */
+.btn-neon {
+  position: relative;
+  display: inline-block;
+  padding: 16px 42px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  border-radius: 50px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  overflow: hidden;
+  transition: all 0.5s var(--transition-smooth);
+  box-shadow: 0 0 10px var(--accent-glow), inset 0 0 10px rgba(255, 45, 85, 0.1);
+  z-index: 1;
+}
+
+.btn-neon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--transition-smooth);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.btn-neon:hover {
+  color: #fff;
+  box-shadow: 0 0 30px var(--accent-glow), 0 0 60px rgba(255, 45, 85, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-neon:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-neon:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ============================================
+   MUSIC PLAYER
+   ============================================ */
+.music-player {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(20, 20, 30, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s var(--transition-spring);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.music-player:hover {
+  transform: scale(1.1);
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), var(--shadow-glow);
+}
+
+.music-player svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.music-player:hover svg {
+  transform: scale(1.15);
+}
+
+.music-bars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 20px;
+}
+
+.music-bar {
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: musicBar 0.8s ease infinite alternate;
+}
+
+.music-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+.music-bar:nth-child(2) { height: 16px; animation-delay: 0.15s; }
+.music-bar:nth-child(3) { height: 12px; animation-delay: 0.3s; }
+.music-bar:nth-child(4) { height: 18px; animation-delay: 0.45s; }
+
+.music-player.paused .music-bar {
+  animation: none;
+  height: 3px !important;
+}
+
+/* ============================================
+   SCROLL PROGRESS
+   ============================================ */
+.scroll-progress {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scroll-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.4s var(--transition-spring);
+  border: none;
+  padding: 0;
+}
+
+.scroll-dot.active {
+  background: var(--accent);
+  transform: scale(1.5);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.scroll-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.3);
+}
+
+/* ============================================
+   FLOATING BALLOONS
+   ============================================ */
+.balloon-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -120px;
+  width: 45px;
+  height: 60px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  animation: balloonRise linear forwards;
+}
+
+.balloon::before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  background: inherit;
+  border-radius: 50%;
+  filter: brightness(0.8);
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.balloon-shine {
+  position: absolute;
+  top: 18%;
+  left: 20%;
+  width: 12px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  filter: blur(2px);
+  transform: rotate(30deg);
+}
+
+/* ============================================
+   CONFETTI
+   ============================================ */
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+@keyframes shimmerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; text-shadow: 0 0 10px var(--accent-glow); }
+  50% { opacity: 1; text-shadow: 0 0 30px var(--accent-glow); }
+}
+
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
+  40% { transform: rotate(45deg) translateY(8px); }
+  60% { transform: rotate(45deg) translateY(4px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes musicBar {
+  0% { height: 4px; }
+  100% { height: 20px; }
+}
+
+@keyframes balloonRise {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% { opacity: 0.9; }
+  80% { opacity: 0.9; }
+  100% {
+    transform: translateY(-120vh) translateX(var(--drift, 30px)) rotate(var(--rotate, 15deg));
+    opacity: 0;
+  }
+}
+
+@keyframes sparkleFloat {
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  20% { opacity: 1; transform: translateY(-10px) scale(1); }
+  100% { transform: translateY(-60px) scale(0); opacity: 0; }
+}
+
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+  15% { opacity: 0.8; transform: translateY(-15vh) scale(1) rotate(20deg); }
+  100% { transform: translateY(-110vh) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .hero-photo-ring {
+    width: 140px;
+    height: 140px;
+  }
+
+  .gallery-featured-frame {
+    max-width: 320px;
+  }
+
+  .finale-photo-ring {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .scroll-progress {
+    right: 0.75rem;
+    gap: 12px;
+  }
+  
+  .scroll-dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .music-player {
+    bottom: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .message-card {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .hero-scroll-indicator {
+    bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-photo-ring {
+    width: 120px;
+    height: 120px;
+  }
+
+  .gallery-featured-frame {
+    max-width: 280px;
+  }
+  
+  .finale-title {
+    font-size: 2rem;
+  }
+}
